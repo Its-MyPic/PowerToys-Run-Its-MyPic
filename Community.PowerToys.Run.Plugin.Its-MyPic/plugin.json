@@ -1,0 +1,14 @@
+{
+  "ID": "048FCB4CE3034FD9ACD9486F9FAB1F9E",
+  "ActionKeyword": "go",
+  "IsGlobal": false,
+  "Name": "Its-MyPic",
+  "Author": "jeffpeng3",
+  "Version": "0.1.0",
+  "Language": "csharp",
+  "Website": "https://github.com/jeffpeng3/powertoys_run_Its_MyPic",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.Its-MyPic.dll",
+  "IcoPathDark": "Images\\its_mypic.dark.png",
+  "IcoPathLight": "Images\\its_mypic.light.png",
+  "DynamicLoading": false
+}

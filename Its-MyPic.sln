@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Community.PowerToys.Run.Plugin.Its-MyPic", "Community.PowerToys.Run.Plugin.Its-MyPic\Community.PowerToys.Run.Plugin.Its-MyPic.csproj", "{360A4377-5308-418D-8A55-8E0D9FA74EA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Debug|ARM64.Build.0 = Debug|ARM64
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Debug|x64.ActiveCfg = Debug|x64
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Debug|x64.Build.0 = Debug|x64
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Release|ARM64.ActiveCfg = Release|ARM64
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Release|ARM64.Build.0 = Release|ARM64
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Release|x64.ActiveCfg = Release|x64
+		{360A4377-5308-418D-8A55-8E0D9FA74EA7}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD63214C-A7BB-420E-B0F4-0731A6072157}
+	EndGlobalSection
+EndGlobal
