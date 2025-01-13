@@ -30,8 +30,8 @@ jobs:
           echo "Artifact name: $artifactName"
           echo "artifactName=$artifactName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: Build and pack artifact
         working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
@@ -41,7 +41,7 @@ jobs:
           $releasePath = "./bin/${{ matrix.arch }}/Release/net8.0-windows"
           mkdir "./release/$name"
 
-          dotnet build -c Release /p:Platform=${{ matrix.arch }}
+          dotnet build -c Release
 
           $files = @(
             "$releasePath/$assembly.deps.json",
