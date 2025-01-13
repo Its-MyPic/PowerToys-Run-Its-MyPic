@@ -36,7 +36,7 @@ jobs:
       - name: Build and pack artifact
         working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
         run: |
-          $name = "PowerToys-Run-Its-MyPic"
+          $name = "Its-MyPic"
           $assembly = "Community.PowerToys.Run.Plugin.$name"
           $releasePath = "./bin/${{ matrix.arch }}/Release/net8.0-windows"
           mkdir "./release/$name"
