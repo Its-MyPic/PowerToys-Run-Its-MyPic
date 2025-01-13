@@ -22,7 +22,7 @@ jobs:
         id: name
         working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
         run: |
-          $name = "${{ github.repository }}"
+          $name = "PowerToys-Run-Its-MyPic"
           $hash = $(git rev-parse --short HEAD)
           $version = "v$((Get-Content ./plugin.json | ConvertFrom-Json).Version)-$hash"
           $arch = "${{ matrix.arch }}"
@@ -36,7 +36,7 @@ jobs:
       - name: Build and pack artifact
         working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
         run: |
-          $name = "${{ github.repository }}"
+          $name = "PowerToys-Run-Its-MyPic"
           $assembly = "Community.PowerToys.Run.Plugin.$name"
           $releasePath = "./bin/${{ matrix.arch }}/Release/net8.0-windows"
           mkdir "./release/$name"
