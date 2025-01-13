@@ -20,6 +20,7 @@ jobs:
 
       - name: Generate artifact name
         id: name
+        working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
         run: |
           $name = "${{ github.repository }}"
           $hash = $(git rev-parse --short HEAD)
@@ -30,6 +31,7 @@ jobs:
           echo "artifactName=$artifactName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
       - name: Build and pack artifact
+        working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
         run: |
           $name = "${{ github.repository }}"
           $assembly = "Community.PowerToys.Run.Plugin.$name"
@@ -51,4 +53,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.name.outputs.artifactName }}.zip
-          path: ./release/
+          path: ./Community.PowerToys.Run.Plugin.Its-MyPic/release/
