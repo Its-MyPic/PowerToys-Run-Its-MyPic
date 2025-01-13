@@ -41,7 +41,7 @@ jobs:
           $releasePath = "./bin/${{ matrix.arch }}/Release/net8.0-windows"
           mkdir "./release/$name"
 
-          dotnet build -c Release
+          dotnet build -c Release /p:Platform=${{ matrix.arch }}
 
           $files = @(
             "$releasePath/$assembly.deps.json",
