@@ -25,6 +25,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove=".github\**" />
+    <EmbeddedResource Remove=".github\**" />
+    <None Remove=".github\**" />
+    <Page Remove=".github\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="data.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
