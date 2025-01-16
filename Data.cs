@@ -75,6 +75,10 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 		public Data()
 		{
 			subtitleDatas = JsonSerializer.Deserialize<List<SubtitleInfo>>(File.ReadAllText($"{PluginDirectory}/data.json"), options);
+			foreach (var data in subtitleDatas)
+			{
+				data.Text = data.Text.Replace("妳", "你").ToLower();
+			}
 			Log.Info($"Loaded {subtitleDatas.Count} Subtitle Data", GetType());
 
 			storage = new();
@@ -101,7 +105,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 		{
 			var search = SEARCH.ToLower();
 			var ret = subtitleDatas
-				.Where(data => data.Text.Contains(search, StringComparison.CurrentCultureIgnoreCase))
+				.Where(data => data.Text.Contains(search.Replace("妳", "你"), StringComparison.CurrentCultureIgnoreCase))
 				.OrderByDescending(e => e.UsedCount)
 				.ThenByDescending(e => e.UsedCount)
 				.Take(25);
