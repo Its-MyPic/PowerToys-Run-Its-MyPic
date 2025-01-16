@@ -7,7 +7,7 @@ try{
 		sleep 1
 
 		# change this to your PowerToys installation path
-		$ptPath = 'C:\Users\jeffp\AppData\Local\PowerToys'
+		$ptPath = "$env:LOCALAPPDATA\PowerToys"
 		$project = 'Its-MyPic'
 		$debug = '.\bin\x64\Debug\net8.0-windows'
 		$dest = "$env:LOCALAPPDATA\Microsoft\PowerToys\PowerToys Run\Plugins\$project"
