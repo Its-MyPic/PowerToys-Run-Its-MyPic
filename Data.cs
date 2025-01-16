@@ -47,7 +47,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 					};
 					UsedCount++;
 					modifiedCount++;
-					if (modifiedCount > 10)
+					if (modifiedCount > 5)
 					{
 						modifiedCount = 0;
 						data.Save();
