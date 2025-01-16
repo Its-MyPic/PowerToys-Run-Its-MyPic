@@ -36,7 +36,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 					new()
 					{
 						PluginName = "It's My Pic!",
-						Title = "Copy (Enter)",
+						Title = "Copy (Shift+Enter)",
 						Glyph = "\xE8C8",
 						FontFamily = "Segoe Fluent Icons, Segoe MDL2 Assets",
 						AcceleratorKey = Key.Enter,
