@@ -1,19 +1,27 @@
-﻿using Microsoft.Extensions.Options;
-using System;
+﻿using System.Collections.Specialized;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.Json;
+using Wox.Infrastructure.Storage;
 using System.Threading.Tasks;
-using System.Windows;
+using Wox.Infrastructure;
+using Wox.Plugin.Logger;
+using System.Text.Json;
 using System.Net.Http;
+using System.Windows;
+using System.Linq;
+using Wox.Plugin;
+using System.IO;
+using System;
 
 namespace Community.PowerToys.Run.Plugin.Its_MyPic
 {
+	public class History
+	{
+		public int Version { get; set; }
+		public List<int> Histroy { get; set; }
+	}
 	public class SubtitleInfo
 	{
+		private static int modifiedCount = 0;
 		public string Text { get; set; }
 		public string Episode { get; set; }
 		public int Frame_start { get; set; }
@@ -21,82 +29,127 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 		public int Segment_id { get; set; }
 		public string FileName => $"{Episode}_{Frame_start}.jpg";
 
+		public Result ToResult(string search, Data data)
+		{
+			var r = StringMatcher.FuzzySearch(search, Text);
+			return new Result
+			{
+				QueryTextDisplay = search,
+				IcoPath = $"{Main.PluginDirectory}/Images/{FileName}",
+				Title = Text,
+				TitleHighlightData = r.MatchData,
+				Score = UsedCount,
+				Action = _ =>
+				{
+					var list = new StringCollection
+					{
+						$"{Main.PluginDirectory}/Images/{FileName}"
+					};
+					UsedCount++;
+					modifiedCount++;
+					if (modifiedCount > 10)
+					{
+						modifiedCount = 0;
+						data.Save();
+						Log.Info("Data Saved", GetType());
+					}
+					Clipboard.SetFileDropList(list);
+					return true;
+				},
+				ContextData = this,
+			};
+		}
+
 	}
 	public class Data
 	{
+		private static readonly int DATA_VERSION = "なんで春日影やったの！？".GetHashCode();
 		private readonly HttpClient client = new();
-		private static int UpdateCount = 0;
 		readonly JsonSerializerOptions options = new() { PropertyNameCaseInsensitive = true, };
-		public static string PluginDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+		public static string PluginDirectory => Main.PluginDirectory;
 
 		private readonly List<SubtitleInfo> subtitleDatas = [];
+
+		private readonly PluginJsonStorage<History> storage;
+		private readonly History history;
 		public Data()
 		{
 			subtitleDatas = JsonSerializer.Deserialize<List<SubtitleInfo>>(File.ReadAllText($"{PluginDirectory}/data.json"), options);
-			foreach (var data in subtitleDatas)
+			Log.Info($"Loaded {subtitleDatas.Count} Subtitle Data", GetType());
+
+			storage = new();
+
+			history = storage.Load();
+			if (history.Version != DATA_VERSION)
 			{
-				//data.UsedCount = System.Windows.Properties.Settings.Default;
+				Log.Info("History is outdated, updateing", GetType());
+				history.Version = DATA_VERSION;
+				history.Histroy = null;
+			}
+			if (history.Histroy is null)
+			{
+				Log.Info("History is empty, Initializing", GetType());
+				history.Histroy = new List<int>(new int[subtitleDatas.Count]);
+				storage.Save();
+			}
+			for (int i = 0; i < history.Histroy.Count; i++)
+			{
+				subtitleDatas[i].UsedCount = history.Histroy[i];
 			}
 		}
-		public List<SubtitleInfo> GetSubtitleDatas(string search)
+		public List<Result> GetMatchedSubtitleDatas(string SEARCH, bool waitable = true)
 		{
-			search = search.ToLower();
+			var search = SEARCH.ToLower();
 			var ret = subtitleDatas
-				.Where(data => data.Text.Contains(search))
+				.Where(data => data.Text.Contains(search, StringComparison.CurrentCultureIgnoreCase))
 				.OrderByDescending(e => e.UsedCount)
 				.ThenByDescending(e => e.UsedCount)
-				.Take(25).ToList();
-			PrepareImage(ret).Wait();
-			Console.WriteLine($"GetSubtitleDatas {search} {ret.Count}, downloaded");
-
-
-			return ret;
-		}
-		public void UpdateUsedCount(int Segment_id)
-		{
-			var index = subtitleDatas.FindIndex(e => e.Segment_id == Segment_id);
-			if (index != -1)
+				.Take(25);
+			if (waitable)
 			{
-				UpdateCount++;
-				subtitleDatas[index].UsedCount++;
+				PrepareImage(ret).Wait();
 			}
-			if (UpdateCount > 10)
+			else
 			{
-				UpdateCount = 0;
-				File.WriteAllText($"{PluginDirectory}/data.json", JsonSerializer.Serialize(subtitleDatas, options));
+				ret = ret.Where(e => File.Exists($"{PluginDirectory}/Images/{e.FileName}"));
 			}
+			return ret.Select(e => e.ToResult(SEARCH, this)).ToList();
 		}
-
-		private async Task PrepareImage(List<SubtitleInfo> filteredDatas)
+		private async Task PrepareImage(IEnumerable<SubtitleInfo> filteredDatas)
 		{
 			IEnumerable<Task> tasks = filteredDatas.Select(d => DownloadImage(d));
 			await Task.WhenAll(tasks);
 		}
-
 		private async Task DownloadImage(SubtitleInfo subtitleData)
 		{
 			var file_name = subtitleData.FileName;
 			var file_path = $"{PluginDirectory}/Images/{file_name}";
-			if (!File.Exists(file_path))
+			if (File.Exists(file_path))
 			{
-				var url = $"https://raw.githubusercontent.com/jeffpeng3/PowerToys-Run-Its-MyPic/assets/images/{file_name}";
-				using HttpResponseMessage message = await client.GetAsync(url);
-				var stream = await message.Content.ReadAsByteArrayAsync();
-				for (int i = 0; i < 3; i++)
-				{
-					try
-					{
-						await File.WriteAllBytesAsync(file_path, stream);
-						break;
-					}
-					catch (Exception e)
-					{
-						Console.WriteLine($"retrying safe Image {file_name} {i}: {e.Message}");
-					}
-				}
-				Console.WriteLine($"Downloaded {file_name}");
+				return;
 			}
+			var url = $"https://raw.githubusercontent.com/jeffpeng3/PowerToys-Run-Its-MyPic/assets/images/{file_name}";
+			using HttpResponseMessage message = await client.GetAsync(url);
+			var stream = await message.Content.ReadAsByteArrayAsync();
+			for (int i = 0; i < 3; i++)
+			{
+				try
+				{
+					await File.WriteAllBytesAsync(file_path, stream);
+					return;
+				}
+				catch (Exception e)
+				{
+					Log.Warn($"Failed to download {file_name} retrying {i + 1} {e}", GetType());
+				}
+			}
+			Log.Error($"Failed to download {file_name}", GetType());
+		}
+
+		public void Save()
+		{
+			history.Histroy = subtitleDatas.Select(e => e.UsedCount).ToList();
+			storage.Save();
 		}
 	}
-
 }
