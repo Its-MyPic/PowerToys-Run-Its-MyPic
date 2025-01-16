@@ -15,12 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Display dotnet version
-        run: dotnet --version
-
       - name: Generate artifact name
         id: name
-        working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
         run: |
           $name = "PowerToys-Run-Its-MyPic"
           $hash = $(git rev-parse --short HEAD)
@@ -30,11 +26,7 @@ jobs:
           echo "Artifact name: $artifactName"
           echo "artifactName=$artifactName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-
       - name: Build and pack artifact
-        working-directory: ./Community.PowerToys.Run.Plugin.Its-MyPic
         run: |
           $name = "Its-MyPic"
           $assembly = "Community.PowerToys.Run.Plugin.$name"
@@ -47,13 +39,16 @@ jobs:
             "$releasePath/$assembly.deps.json",
             "$releasePath/$assembly.dll",
             "$releasePath/plugin.json",
-            "$releasePath/Images",
+            "Images",
             "data.json"
-          )
+            )
           Copy-Item $files "./release/$name" -Recurse -Force
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.name.outputs.artifactName }}.zip
-          path: ./Community.PowerToys.Run.Plugin.Its-MyPic/release/
+          path: ./release/
