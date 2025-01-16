@@ -25,7 +25,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 		public static string PluginID => "048FCB4CE3034FD9ACD9486F9FAB1F9E";
 		public string Name => "Its-MyPic";
 		public static string PluginDirectory => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-		public string Description => "MyGO快速複製圖片";
+		public string Description => "MyGO Screenshot Quick Copy";
 
 		private CachingService _cache;
 
