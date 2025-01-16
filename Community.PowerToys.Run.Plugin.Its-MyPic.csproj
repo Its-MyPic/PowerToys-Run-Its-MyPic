@@ -9,9 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Community.PowerToys.Run.Plugin.Dependencies" Version="0.86.0" />
-    <PackageReference Include="LazyCache" Version="2.4.0" />
     <PackageVersion Include="System.Text.Json" Version="9.0.0" />
-    <PackageVersion Include="LazyCache" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
