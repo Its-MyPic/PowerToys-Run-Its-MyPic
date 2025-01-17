@@ -32,6 +32,7 @@ jobs:
           $assembly = "Community.PowerToys.Run.Plugin.$name"
           $releasePath = "./bin/${{ matrix.arch }}/Release/net8.0-windows"
           mkdir "./release/$name"
+          mkdir "./release/$name/Images"
 
           dotnet build -c Release /p:Platform=${{ matrix.arch }}
 
@@ -40,8 +41,7 @@ jobs:
             "$releasePath/$assembly.dll",
             "plugin.json",
             "data.json",
-            "setup.bat",
-            "Images"
+            "setup.bat"
             )
           Copy-Item $files "./release/$name" -Recurse -Force
 
