@@ -13,7 +13,6 @@ if %errorlevel% equ 0 (
 set ptPath=%LocalAppData%\PowerToys
 set newFolder=%LocalAppData%\Microsoft\PowerToys\PowerToys Run\Plugins\Its-MyPic
 md "%newFolder%"
-md "%newFolder%\images"
 echo.
 copy /y * "%newFolder%"
 echo.

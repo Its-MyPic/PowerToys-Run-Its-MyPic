@@ -20,7 +20,6 @@ try{
 
 		Set-Location $debug
 		mkdir $dest -Force -ErrorAction Ignore | Out-Null
-		mkdir $dest\images -Force -ErrorAction Ignore | Out-Null
 		Copy-Item $files $dest -Force -Recurse
 
 		& "$ptPath\PowerToys.exe"

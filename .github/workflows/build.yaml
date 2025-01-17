@@ -51,5 +51,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.name.outputs.artifactName }}.zip
+          name: ${{ steps.name.outputs.artifactName }}
           path: ./release/
