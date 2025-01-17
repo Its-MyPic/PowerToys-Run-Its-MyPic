@@ -4,7 +4,7 @@
   "IsGlobal": false,
   "Name": "Its-MyPic",
   "Author": "jeffpeng3",
-  "Version": "0.1.0",
+  "Version": "1.1.0",
   "Language": "csharp",
   "Website": "https://github.com/jeffpeng3/powertoys_run_Its_MyPic",
   "ExecuteFileName": "Community.PowerToys.Run.Plugin.Its-MyPic.dll",
