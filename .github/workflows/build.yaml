@@ -38,9 +38,10 @@ jobs:
           $files = @(
             "$releasePath/$assembly.deps.json",
             "$releasePath/$assembly.dll",
-            "$releasePath/plugin.json",
-            "Images",
-            "data.json"
+            "plugin.json",
+            "data.json",
+            "setup.bat",
+            "Images"
             )
           Copy-Item $files "./release/$name" -Recurse -Force
 
