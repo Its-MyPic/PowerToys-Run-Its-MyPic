@@ -15,7 +15,7 @@
 
 ## 安裝方式
 ### 執行安裝腳本
-1. 從 [releases page](releases) 下載最新的安裝包
+1. 從 [releases page](https://github.com/jeffpeng3/PowerToys-Run-Its-MyPic/releases/latest) 下載最新的安裝包
 2. 解壓縮安裝包並打開資料夾
 
     ![alt text](Docs/setup_bat.png)
@@ -27,7 +27,7 @@
 > 若提示 `終止 PowerToys 失敗`，請使用管理員身分執行 `setup.bat`
 
 ### 手動安裝
-1. 從 [releases page](releases) 下載最新的安裝包
+1. 從 [releases page](https://github.com/jeffpeng3/PowerToys-Run-Its-MyPic/releases/latest) 下載最新的安裝包
 2. 將 `.zip` 的內容解壓縮至 `%LocalAppData%\Microsoft\PowerToys\PowerToys Run\Plugins`
 
     ![alt text](Docs/install.png)

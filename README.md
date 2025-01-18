@@ -14,7 +14,7 @@ A [PowerToys Run](https://learn.microsoft.com/zh-tw/windows/powertoys/run) plugi
 
 ## Installation
 ### using setup script
-1. Download the latest release of the from the [releases page](releases).
+1. Download the latest release of the from the [releases page](https://github.com/jeffpeng3/PowerToys-Run-Its-MyPic/releases/latest).
 2. Extract the `.zip` file and open folder
 
     ![alt text](Docs/setup_bat.png)
@@ -26,7 +26,7 @@ A [PowerToys Run](https://learn.microsoft.com/zh-tw/windows/powertoys/run) plugi
 > please run `setup.bat` as administrator if prompted `Failed to kill PowerToys`.
 
 ### manual Install
-1. Download the latest release of the from the [releases page](releases).
+1. Download the latest release of the from the [releases page](https://github.com/jeffpeng3/PowerToys-Run-Its-MyPic/releases/latest).
 2. Extract the `.zip` file's contents to `%LocalAppData%\Microsoft\PowerToys\PowerToys Run\Plugins`
 
     ![alt text](Docs/install.png)
