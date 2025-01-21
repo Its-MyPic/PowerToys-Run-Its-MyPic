@@ -12,6 +12,8 @@ using Wox.Plugin;
 using System.IO;
 using System;
 using System.Windows.Media.Imaging;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Community.PowerToys.Run.Plugin.Its_MyPic
 {
@@ -68,7 +70,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 	}
 	public class Data
 	{
-		private static readonly int DATA_VERSION = "なんで春日影やったの！？".GetHashCode();
+		private static readonly int DATA_VERSION = BitConverter.ToInt32(SHA256.HashData(Encoding.UTF8.GetBytes("なんで春日影やったの！？")), 0);
 		private readonly HttpClient client = new();
 		readonly JsonSerializerOptions options = new() { PropertyNameCaseInsensitive = true, };
 		public static string PluginDirectory => Main.PluginDirectory;
@@ -93,6 +95,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 			storage = new();
 
 			history = storage.Load();
+			Log.Debug($"{history.Version} {DATA_VERSION}", GetType());
 			if (history.Version != DATA_VERSION)
 			{
 				Log.Info("History is outdated, updateing", GetType());
