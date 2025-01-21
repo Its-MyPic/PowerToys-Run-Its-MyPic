@@ -14,7 +14,7 @@ set ptPath=%LocalAppData%\PowerToys
 set newFolder=%LocalAppData%\Microsoft\PowerToys\PowerToys Run\Plugins\Its-MyPic
 md "%newFolder%"
 echo.
-copy /y * "%newFolder%"
+xcopy /y /e * "%newFolder%"
 echo.
 echo ¥¿¦b­«±Ò PowerToys...
 

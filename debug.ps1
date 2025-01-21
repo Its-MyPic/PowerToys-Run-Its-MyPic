@@ -15,7 +15,7 @@ try{
 			"Community.PowerToys.Run.Plugin.$project.deps.json",
 			"Community.PowerToys.Run.Plugin.$project.dll",
 			'plugin.json',
-			'data.json'
+			'data'
 		)
 
 		Set-Location $debug

@@ -1,6 +1,6 @@
 name: build
 
-on: 
+on:
   push:
   pull_request:
 
@@ -14,6 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Generate artifact name
         id: name
@@ -40,8 +42,8 @@ jobs:
             "$releasePath/$assembly.deps.json",
             "$releasePath/$assembly.dll",
             "plugin.json",
-            "data.json",
-            "setup.bat"
+            "setup.bat",
+            "data"
             )
           Copy-Item $files "./release/$name" -Recurse -Force
 

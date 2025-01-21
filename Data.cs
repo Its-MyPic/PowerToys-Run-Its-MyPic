@@ -83,7 +83,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 			{
 				Directory.CreateDirectory($"{PluginDirectory}/Images");
 			}
-			subtitleDatas = JsonSerializer.Deserialize<List<SubtitleInfo>>(File.ReadAllText($"{PluginDirectory}/data.json"), options);
+			subtitleDatas = JsonSerializer.Deserialize<List<SubtitleInfo>>(File.ReadAllText($"{PluginDirectory}/data/data.json"), options);
 			foreach (var data in subtitleDatas)
 			{
 				data.Text = data.Text.Replace("妳", "你").ToLower();
@@ -141,7 +141,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 			{
 				return;
 			}
-			var url = $"https://raw.githubusercontent.com/jeffpeng3/PowerToys-Run-Its-MyPic/assets/images/{file_name}";
+			var url = $"https://media.githubusercontent.com/media/jeffpeng3/MyPicDB/assets/images/{file_name}";
 			using HttpResponseMessage message = await client.GetAsync(url);
 			var stream = await message.Content.ReadAsByteArrayAsync();
 			for (int i = 0; i < 3; i++)
