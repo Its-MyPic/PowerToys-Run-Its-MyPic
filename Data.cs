@@ -70,7 +70,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 	}
 	public class Data
 	{
-		private static readonly int DATA_VERSION = BitConverter.ToInt32(SHA256.HashData(Encoding.UTF8.GetBytes("なんで春日影やったの！？")), 0);
+		private static readonly int DATA_VERSION = BitConverter.ToInt32(SHA256.HashData(Encoding.UTF8.GetBytes("我全都不會彈喔")), 0);
 		private readonly HttpClient client = new();
 		readonly JsonSerializerOptions options = new() { PropertyNameCaseInsensitive = true, };
 		public static string PluginDirectory => Main.PluginDirectory;
