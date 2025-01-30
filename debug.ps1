@@ -14,7 +14,10 @@ try{
 		$files = @(
 			"Community.PowerToys.Run.Plugin.$project.deps.json",
 			"Community.PowerToys.Run.Plugin.$project.dll",
+			"Community.PowerToys.Run.Plugin.Update.dll",
 			'plugin.json',
+			"update.ps1",
+			"Images",
 			'data'
 		)
 

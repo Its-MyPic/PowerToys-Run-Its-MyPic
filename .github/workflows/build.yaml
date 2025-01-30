@@ -17,18 +17,21 @@ jobs:
         with:
           submodules: true
 
+      - name: Build
+        run: |
+          dotnet build -c Release /p:Platform=${{ matrix.arch }}
+
       - name: Generate artifact name
         id: name
         run: |
-          $name = "PowerToys-Run-Its-MyPic"
-          $hash = $(git rev-parse --short HEAD)
-          $version = "v$((Get-Content ./plugin.json | ConvertFrom-Json).Version)-$hash"
+          $name = "Its-MyPic"
+          $version = "$((Get-Content ./plugin.json | ConvertFrom-Json).Version)"
           $arch = "${{ matrix.arch }}"
           $artifactName = "$name-$version-$arch"
           echo "Artifact name: $artifactName"
           echo "artifactName=$artifactName" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
 
-      - name: Build and pack artifact
+      - name: pack artifact
         run: |
           $name = "Its-MyPic"
           $assembly = "Community.PowerToys.Run.Plugin.$name"
@@ -36,15 +39,17 @@ jobs:
           mkdir "./release/$name"
           mkdir "./release/$name/Images"
 
-          dotnet build -c Release /p:Platform=${{ matrix.arch }}
 
           $files = @(
+            "$releasePath/Community.PowerToys.Run.Plugin.Update.dll",
             "$releasePath/$assembly.deps.json",
             "$releasePath/$assembly.dll",
-            "plugin.json",
-            "setup.bat",
-            "data"
-            )
+            "$releasePath/plugin.json",
+            "$releasePath/update.ps1",
+            "$releasePath/Images",
+            "$releasePath/data",
+            "setup.bat"
+          )
           Copy-Item $files "./release/$name" -Recurse -Force
 
       # - name: Setup tmate session
