@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "gitsubmodule"
+    directory: "/data"
+    schedule:
+      interval: "daily"
