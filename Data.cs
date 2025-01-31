@@ -144,7 +144,7 @@ namespace Community.PowerToys.Run.Plugin.Its_MyPic
 			{
 				return;
 			}
-			var url = $"https://media.githubusercontent.com/media/jeffpeng3/MyPicDB/assets/images/{file_name}";
+			var url = $"https://mygodata.0m0.uk/images/{file_name}";
 			using HttpResponseMessage message = await client.GetAsync(url);
 			var stream = await message.Content.ReadAsByteArrayAsync();
 			for (int i = 0; i < 3; i++)
