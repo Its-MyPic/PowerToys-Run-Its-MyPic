@@ -6,7 +6,7 @@
   "Author": "jeffpeng3",
   "Version": "1.4.3",
   "Language": "csharp",
-  "Website": "https://github.com/jeffpeng3/PowerToys-Run-Its-MyPic",
+  "Website": "https://github.com/MyGO-Pic/PowerToys-Run-Its-MyPic",
   "ExecuteFileName": "Community.PowerToys.Run.Plugin.Its-MyPic.dll",
   "IcoPathDark": "Images\\its_mypic.dark.png",
   "IcoPathLight": "Images\\its_mypic.light.png",
